@@ -71,7 +71,7 @@ public class StrategyWildcard extends Strategy
     private void UpdateRecord()
     {
         for(int i=m_opponentRecord.length - 1; i>0; i--)
-            m_opponentRecord[i-1] = m_opponentRecord[i];
+            m_opponentRecord[i] = m_opponentRecord[i-1];
         m_opponentRecord[0] = opponentLastMove;
     }/* UpdateRecord */
 
