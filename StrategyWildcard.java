@@ -41,8 +41,7 @@ public class StrategyWildcard extends Strategy
 
     public int nextMove()
     {
-        int recordLength = m_opponentRecord.length;
-        if(recordLength <1)
+        if(m_opponentRecord.length <1)
             return 1;
 
         if(m_opponentRecord[0] == -1)
