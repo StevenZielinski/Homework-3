@@ -84,7 +84,7 @@ public class StrategyWildcard extends Strategy
         {
             if(m_opponentRecord[i] == 0)
                 m_defectWeight += m_recordWeights[i];
-            else
+            else if(m_opponentRecord[i] == 1)
                 m_cooperateWeight += m_recordWeights[i];
         }
     }/* UpdateWeights */
