@@ -45,6 +45,9 @@ public class StrategyWildcard extends Strategy
         if(recordLength <1)
             return 1;
 
+        if(m_opponentRecord[0] == -1)
+            return m_firstMove;
+
         UpdateRecord();
         UpdateWeights();
 
