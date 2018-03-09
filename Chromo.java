@@ -150,7 +150,40 @@ public class Chromo
 			return(j);
 
 		case 2:     //  Tournament Selection
-
+			randnum = Search.r.nextDouble();
+			j = (int) (randnum * Parameters.popSize);
+			randnum = Search.r.nextDouble();
+			k = (int) (randnum * Parameters.popSize);
+			while (j == k)
+			{
+				randnum = Search.r.nextDouble();
+				k = (int) (randnum * Parameters.popSize);
+			}
+			
+			randnum = Search.r.nextDouble();
+			
+			if (randnum < Parameters.tournamentSelectionRate)
+			{
+				if (Search.member[j].proFitness > Search.member[k].proFitness)
+				{
+					return j;
+				}
+				else
+				{
+					return k;
+				}
+			}
+			else
+			{
+				if (Search.member[j].proFitness > Search.member[k].proFitness)
+				{
+					return k;
+				}
+				else
+				{
+					return j;
+				}
+			}
 		default:
 			System.out.println("ERROR - No selection method selected");
 		}
@@ -178,8 +211,25 @@ public class Chromo
 
 		case 2:     //  Two Point Crossover
 
-		case 3:     //  Uniform Crossover
-
+		case 3:     //  Uniform Crossover			
+			child1.chromo = "";
+			child2.chromo = "";
+			
+			for (int i = 0; i < parent1.chromo.length(); i++)
+			{
+				if (Search.r.nextBoolean())
+				{
+					child1.chromo += parent1.chromo.substring(i, i+1);
+					child2.chromo += parent2.chromo.substring(i, i+1);
+				}
+				else
+				{
+					child1.chromo += parent2.chromo.substring(i, i+1);
+					child2.chromo += parent1.chromo.substring(i, i+1);
+				}
+			}
+			
+			break;
 		default:
 			System.out.println("ERROR - Bad crossover method selected");
 		}

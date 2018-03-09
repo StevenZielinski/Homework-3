@@ -82,6 +82,10 @@ public class Search {
 		FileWriter summaryOutput = new FileWriter(summaryFileName);
 		parmValues.outputParameters(summaryOutput);
 
+	// Write values to CSV File
+		String csvFileName = Parameters.expID + "_values.csv";
+		FileWriter csvOutput = new FileWriter(csvFileName);
+		
 	//	Set up Fitness Statistics matrix
 		fitnessStats = new double[2][Parameters.generations];
 		for (int i=0; i<Parameters.generations; i++){
@@ -219,7 +223,10 @@ public class Search {
 				Hwrite.right(stdevRawFitness, 11, 3, summaryOutput);
 				summaryOutput.write("\n");
 
-
+				csvOutput.write(bestOfGenChromo.rawFitness + ", " + averageRawFitness + ", " + stdevRawFitness);
+				csvOutput.write(", " + bestOfGenChromo.chromo);
+				csvOutput.write("\n");
+				
 		// *********************************************************************
 		// **************** SCALE FITNESS OF EACH MEMBER AND SUM ***************
 		// *********************************************************************
@@ -357,6 +364,9 @@ public class Search {
 
 			System.out.println(R + "\t" + "B" + "\t"+ (int)bestOfRunChromo.rawFitness);
 
+			csvOutput.write(", , , , " + bestOfRunChromo.rawFitness + ", " + bestOfRunChromo.chromo);
+			csvOutput.write("\n");
+			
 		} //End of a Run
 
 		Hwrite.left("B", 8, summaryOutput);
@@ -372,6 +382,9 @@ public class Search {
 			summaryOutput.write("\n");
 		}
 
+		csvOutput.write("\n");
+		csvOutput.close();
+		
 		summaryOutput.write("\n");
 		summaryOutput.close();
 
