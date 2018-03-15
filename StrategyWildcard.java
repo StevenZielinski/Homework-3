@@ -41,11 +41,11 @@ public class StrategyWildcard extends Strategy
 
     public int nextMove()
     {
-        if(m_opponentRecord.length <1)
+        if(m_opponentRecord.length < 1)
             return m_firstMove;
 
         UpdateRecord();
-        if(m_opponentRecord[1] == -1)
+        if(m_opponentRecord[0] == -1)
             return m_firstMove;
 
         UpdateWeights();
@@ -60,7 +60,7 @@ public class StrategyWildcard extends Strategy
         if(bDoWildcard())
         {
             FlipMove();
-            System.out.println("Wildcard!\n");
+            //System.out.println("Wildcard!\n");
         }
 
         return m_nextMove;
