@@ -46,6 +46,7 @@ class PDFitnessFunction extends FitnessFunction{
 		// Initialize candidate Strategy
 		Strategy strat = new StrategyWildcard(firstMove, response, recordLength, recordWeights, pWildcard);
 		int score = 0;
+		int opp_score = 0;
 
 		// Set up opponents
 		Strategy[] opponents = new Strategy[5];
@@ -60,13 +61,11 @@ class PDFitnessFunction extends FitnessFunction{
 			IteratedPD ipd = new IteratedPD(strat, opponent);
 			ipd.runSteps(steps);
 			score += ipd.player1Score();
-			if (ipd.player1Score() < ipd.player2Score()){
-				score -= 20;
-			}
+			opp_score += ipd.player2Score();
 		}
 
 		// return raw score
-		X.rawFitness = score;
+		X.rawFitness = score/(score + opp_score);
 	}
 
 	private int getFirstMove(Chromo X){
