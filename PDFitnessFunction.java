@@ -29,15 +29,12 @@ class PDFitnessFunction extends FitnessFunction{
 		name = "Prisoners Dilemma";
 		steps = 1500;
 		
-		int[] recordStratOne = {14, 15, 11, 10, 14, 0, 3, 10};
-		
 		Strategy[] opponents = new Strategy[6];
 		opponents[0] = new StrategyTitForTat();
 		opponents[1] = new StrategyAlwaysCooperate();
 		opponents[2] = new StrategyAlwaysDefect();
 		opponents[3] = new StrategyRandom();
 		opponents[4] = new StrategyTitForTwoTats();
-		opponents[5] = new StrategyWildcard(1, true, 7, recordStratOne, 184);
 		
 		for (int i = 0; i < opponents.length; i++)
 		{
@@ -69,8 +66,6 @@ class PDFitnessFunction extends FitnessFunction{
 		Strategy strat = new StrategyWildcard(firstMove, response, recordLength, recordWeights, pWildcard);
 		int score = 0;
 		int opp_score = 0;
-
-		int[] recordStratOne = {14, 15, 11, 10, 14, 0, 3, 10};
 		
 		// Set up opponents
 		Strategy[] opponents = new Strategy[5];
@@ -79,7 +74,6 @@ class PDFitnessFunction extends FitnessFunction{
 		opponents[2] = new StrategyAlwaysDefect();
 		opponents[3] = new StrategyRandom();
 		opponents[4] = new StrategyTitForTwoTats();
-		opponents[5] = new StrategyWildcard(1, true, 7, recordStratOne, 184);
 
 		// run Interated Prisoners' Dilemmas
 		for (Strategy opponent : opponents){
