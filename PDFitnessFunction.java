@@ -15,6 +15,7 @@ class PDFitnessFunction extends FitnessFunction{
 
 	public int steps;
 	public int MAX_RECORD_SIZE = 8;
+	public int roundRobinScore;
 
 /*******************************************************************************
 *                            STATIC VARIABLES                                  *
@@ -27,6 +28,27 @@ class PDFitnessFunction extends FitnessFunction{
 	public PDFitnessFunction() {
 		name = "Prisoners Dilemma";
 		steps = 1500;
+		
+		int[] recordStratOne = {14, 15, 11, 10, 14, 0, 3, 10};
+		
+		Strategy[] opponents = new Strategy[6];
+		opponents[0] = new StrategyTitForTat();
+		opponents[1] = new StrategyAlwaysCooperate();
+		opponents[2] = new StrategyAlwaysDefect();
+		opponents[3] = new StrategyRandom();
+		opponents[4] = new StrategyTitForTwoTats();
+		opponents[5] = new StrategyWildcard(1, true, 7, recordStratOne, 184);
+		
+		for (int i = 0; i < opponents.length; i++)
+		{
+			for (int j = i+1; j < opponents.length; j++)
+			{
+				IteratedPD ipd = new IteratedPD(opponents[i], opponents[j]);
+				ipd.runSteps(steps);
+				roundRobinScore += ipd.player1Score();
+				roundRobinScore += ipd.player2Score();
+			}
+		}
 	}
 
 /*******************************************************************************
@@ -48,6 +70,8 @@ class PDFitnessFunction extends FitnessFunction{
 		int score = 0;
 		int opp_score = 0;
 
+		int[] recordStratOne = {14, 15, 11, 10, 14, 0, 3, 10};
+		
 		// Set up opponents
 		Strategy[] opponents = new Strategy[5];
 		opponents[0] = new StrategyTitForTat();
@@ -55,6 +79,7 @@ class PDFitnessFunction extends FitnessFunction{
 		opponents[2] = new StrategyAlwaysDefect();
 		opponents[3] = new StrategyRandom();
 		opponents[4] = new StrategyTitForTwoTats();
+		opponents[5] = new StrategyWildcard(1, true, 7, recordStratOne, 184);
 
 		// run Interated Prisoners' Dilemmas
 		for (Strategy opponent : opponents){
@@ -63,9 +88,9 @@ class PDFitnessFunction extends FitnessFunction{
 			score += ipd.player1Score();
 			opp_score += ipd.player2Score();
 		}
-
+		
 		// return raw score
-		X.rawFitness = score/(score + opp_score);
+		X.rawFitness = ((double)score)/((double)(score + opp_score + roundRobinScore));
 	}
 
 	private int getFirstMove(Chromo X){
