@@ -29,7 +29,7 @@ class PDFitnessFunction extends FitnessFunction{
 		name = "Prisoners Dilemma";
 		steps = 1500;
 		
-		Strategy[] opponents = new Strategy[6];
+		Strategy[] opponents = new Strategy[5];
 		opponents[0] = new StrategyTitForTat();
 		opponents[1] = new StrategyAlwaysCooperate();
 		opponents[2] = new StrategyAlwaysDefect();
